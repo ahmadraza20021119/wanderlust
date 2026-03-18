@@ -5,7 +5,7 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = async (req, res) => {
   const { category, search } = req.query;
-  let filter = {};
+  let filter = { isApproved: true };
 
   if (category) filter.category = category;
   if (search) {
@@ -50,7 +50,7 @@ module.exports.createListing = async (req, res) => {
   newListing.geometry = response.body.features[0].geometry;
 
   await newListing.save();
-  req.flash("success", "Successfully made a new listing!");
+  req.flash("success", "Listing submitted! It will be visible after admin approval.");
   res.redirect("/listings");
 };
 
@@ -87,4 +87,16 @@ module.exports.destroyListing = async (req, res) => {
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Successfully deleted listing");
   res.redirect("/listings");
+};
+
+module.exports.renderPendingListings = async (req, res) => {
+  const allListings = await Listing.find({ isApproved: { $ne: true } });
+  res.render("listings/pending.ejs", { allListings });
+};
+
+module.exports.approveListing = async (req, res) => {
+  const { id } = req.params;
+  await Listing.findByIdAndUpdate(id, { isApproved: true });
+  req.flash("success", "Listing approved successfully!");
+  res.redirect("/listings/admin/pending");
 };

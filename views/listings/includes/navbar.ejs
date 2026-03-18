@@ -45,6 +45,9 @@
 
       <div class="navbar-nav ms-auto">
          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+        <% if(currUser && currUser.email === adminEmail) { %>
+          <a class="nav-link text-danger" href="/listings/admin/pending"><b>Moderation Panel</b></a>
+        <% } %>
         <% if(!currUser) { %>
           <a class="nav-link" href="/signup"><b>Sign Up</b></a>
           <a class="nav-link" href="/login"><b>Log In</b></a>
@@ -56,4 +59,3 @@
     </div>
   </div>
 </nav>
-

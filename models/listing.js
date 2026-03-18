@@ -56,6 +56,10 @@ image: {
         "Boats"
     ]
   },
+  isApproved: {
+    type: Boolean,
+    default: false
+  }
 });
 
 listingSchema.post('findOneAndDelete', async (listing) => {
