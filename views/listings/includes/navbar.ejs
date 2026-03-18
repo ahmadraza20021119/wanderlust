@@ -1,61 +1,133 @@
 <style>
-  .search-btn {
-    background-color: #fe424d;
-    color: #fff;
-    border-radius: 25px;
-    padding: 0 1rem 0 1rem;
-  }
-  
-  .search-btn:hover {
-    background-color: #fe424d;
-    color: #fff;
-  }
-  
-  .search-btn i {
-    display: inline;
-    margin-right: 0.5rem;
+  .navbar {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: #fff !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08); /* Add a slight shadow for depth */
   }
 
-  .search-inp {
-    border-radius: 25px;
-    padding: 0.5rem 3rem 0.5rem 3rem;
+  .nav-brand-icon {
+    font-size: 1.5rem;
+    color: #fe424d;
   }
 
+  /* Search Bar Styles */
+  .search-container {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 40px;
+    padding: 0.2rem 0.5rem 0.2rem 1rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+    flex-grow: 1;
+    max-width: 400px;
+    margin: 0 10px;
+  }
+
+  .search-container:hover {
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .search-input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    background: transparent;
+  }
+
+  .search-icon-circle {
+    background-color: #fe424d;
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    flex: 0 0 auto;
+  }
+
+  /* Responsive Fixes */
+  @media (max-width: 767px) {
+    .search-container {
+        max-width: 60%;
+        margin: 0 5px;
+        padding-left: 0.5rem;
+    }
+    .search-input::placeholder {
+        font-size: 12px;
+    }
+    .search-icon-circle {
+        width: 28px;
+        height: 28px;
+    }
+    
+    /* 🔥 This is the fix for the transparent/overlapping menu */
+    .navbar-collapse {
+        background-color: #fff;
+        position: relative;
+        z-index: 1000;
+        margin-top: 10px;
+        padding: 1rem;
+        border-radius: 0 0 10px 10px;
+        border-top: 1px solid #eee;
+    }
+
+    .nav-link {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #f9f9f9;
+        font-weight: 500;
+        color: #444 !important;
+    }
+  }
 </style>
 
-
-
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-md border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-    >     <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-         <a class="nav-link" href="/listings">Explore</a>
-       </div>
+    
+    <!-- TOP ROW -->
+    <div class="d-flex w-100 align-items-center justify-content-between">
+      <a class="navbar-brand" href="/listings">
+        <i class="fa-regular fa-compass nav-brand-icon"></i>
+      </a>
 
-<div class="navbar-nav ms-auto">
-  <form class="d-flex" action="/listings" method="GET">
-      <input class="form-control me-2 search-inp" type="search" name="search" placeholder="Search destinations" >
-      <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
-    </form>
-</div>
+      <form class="search-container" action="/listings" method="GET">
+        <input class="search-input" type="search" name="search" placeholder="Search destinations">
+        <button class="search-icon-circle" type="submit">
+          <i class="fa-solid fa-magnifying-glass" style="font-size: 12px;"></i>
+        </button>
+      </form>
 
-      <div class="navbar-nav ms-auto">
-         <a class="nav-link" href="/listings/new">Airbnb your home</a>
-        <% if(currUser && currUser.email === adminEmail) { %>
-          <a class="nav-link text-danger" href="/listings/admin/pending"><b>Moderation Panel</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- PENDING APPROVAL LINKS (HIDDEN INSIDE) -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav ms-auto text-end">
+        <a class="nav-link" href="/listings">Explore</a>
+        <a class="nav-link" href="/listings/new">Airbnb your home</a>
+        
+        <% if(currUser && typeof adminEmail !== 'undefined' && currUser.email === adminEmail) { %>
+          <a class="nav-link text-danger" href="/listings/admin/pending">Moderation Panel</a>
         <% } %>
+
         <% if(!currUser) { %>
-          <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-          <a class="nav-link" href="/login"><b>Log In</b></a>
-        <% } %> <% if(currUser) { %>
-          <a class="nav-link" href="/logout"><b>Log Out</b></a>
+          <a class="nav-link" href="/signup">Sign Up</a>
+          <a class="nav-link" href="/login">Log In</a>
+        <% } %> 
+        
+        <% if(currUser) { %>
+          <a class="nav-link" href="/logout">Log Out</a>
         <% } %>
-
       </div>
     </div>
+
   </div>
 </nav>
