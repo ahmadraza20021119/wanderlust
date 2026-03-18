@@ -3,128 +3,223 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     background-color: #fff !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08); /* Add a slight shadow for depth */
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
   }
 
+  /* 3-Column Layout for Absolute Centering */
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .nav-left, .nav-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-right {
+    justify-content: flex-end;
+  }
+
+  .nav-center {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Brand Icon */
   .nav-brand-icon {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: #fe424d;
   }
 
-  /* Search Bar Styles */
+  .desktop-explore {
+    font-weight: 600;
+    font-size: 15px;
+    color: #222 !important;
+    margin-left: 0.8rem;
+    text-decoration: none;
+  }
+
+  /* 🔥 Absolute Centered Search Bar */
   .search-container {
-    background-color: #f7f7f7;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 40px;
-    padding: 0.2rem 0.5rem 0.2rem 1rem;
     display: flex;
     align-items: center;
-    transition: all 0.2s;
-    flex-grow: 1;
-    max-width: 400px;
-    margin: 0 10px;
+    padding: 4px 4px 4px 1.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    width: 350px; /* Reference width similar to screenshot */
+    transition: box-shadow 0.2s;
   }
 
   .search-container:hover {
-    background-color: #fff;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 
   .search-input {
-    border: none;
-    outline: none;
+    border: none !important;
+    outline: none !important;
     font-size: 14px;
     font-weight: 500;
     width: 100%;
     background: transparent;
   }
 
-  .search-icon-circle {
+  .search-btn-pill {
     background-color: #fe424d;
-    color: white;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    color: #fff !important;
+    border-radius: 30px;
+    padding: 0.6rem 1.2rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 0.5rem;
     border: none;
-    flex: 0 0 auto;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
   }
 
-  /* Responsive Fixes */
-  @media (max-width: 767px) {
-    .search-container {
-        max-width: 60%;
-        margin: 0 5px;
-        padding-left: 0.5rem;
-    }
-    .search-input::placeholder {
-        font-size: 12px;
-    }
-    .search-icon-circle {
-        width: 28px;
-        height: 28px;
-    }
-    
-    /* 🔥 This is the fix for the transparent/overlapping menu */
-    .navbar-collapse {
-        background-color: #fff;
-        position: relative;
-        z-index: 1000;
-        margin-top: 10px;
-        padding: 1rem;
-        border-radius: 0 0 10px 10px;
-        border-top: 1px solid #eee;
-    }
+  .nav-right a {
+    font-weight: 600;
+    font-size: 14px;
+    color: #222 !important;
+    margin-left: 1.5rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
 
-    .nav-link {
-        padding: 0.8rem 0;
-        border-bottom: 1px solid #f9f9f9;
-        font-weight: 500;
-        color: #444 !important;
+  .admin-panel {
+    color: #fe424d !important;
+  }
+
+  /* Tablet & Mobile Adjustments */
+  @media (max-width: 991px) {
+    .nav-container {
+        flex-wrap: nowrap !important; /* Force everyone into one row */
+        padding: 0.5rem 0.5rem !important;
+        justify-content: space-between !important;
+    }
+    .desktop-explore {
+      display: none !important; /* Hide Explore on mobile/tablet */
+    }
+    .nav-left {
+        flex: 0 0 auto !important;
+        order: 1 !important;
+    }
+    .nav-right {
+        flex: 0 0 auto !important;
+        order: 3 !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
+    .nav-center {
+      order: 2 !important;
+      flex: 1 1 auto !important; /* Take remaining space in the middle */
+      width: auto !important;
+      margin: 0 8px !important;
+      display: flex !important;
+      justify-content: center !important;
+    }
+    .search-container {
+      width: 100% !important;
+      max-width: 280px !important; /* Prevent it from being too big */
+      height: 2.4rem !important;
+      padding-left: 0.8rem !important;
+      border: 1px solid #ccc !important;
+    }
+    .search-input {
+        font-size: 12px !important;
+    }
+    .search-btn-pill span {
+      display: none !important; /* Always hide text on mobile */
+    }
+    .search-btn-pill {
+      padding: 0 0.6rem !important;
+      height: 1.8rem !important;
+      width: 32px !important;
+      justify-content: center !important;
+    }
+    .navbar-collapse {
+        position: absolute !important;
+        top: 100%;
+        right: 1rem;
+        width: 200px !important;
+        background: #fff;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        margin-top: 5px;
     }
   }
 </style>
 
-<nav class="navbar navbar-expand-md border-bottom sticky-top">
-  <div class="container-fluid">
+<nav class="navbar sticky-top">
+  <div class="nav-container">
     
-    <!-- TOP ROW -->
-    <div class="d-flex w-100 align-items-center justify-content-between">
-      <a class="navbar-brand" href="/listings">
+    <!-- LEFT -->
+    <div class="nav-left">
+      <a class="navbar-brand d-flex align-items-center" href="/listings">
         <i class="fa-regular fa-compass nav-brand-icon"></i>
+        <span class="desktop-explore">Explore</span>
       </a>
-
-      <form class="search-container" action="/listings" method="GET">
-        <input class="search-input" type="search" name="search" placeholder="Search destinations">
-        <button class="search-icon-circle" type="submit">
-          <i class="fa-solid fa-magnifying-glass" style="font-size: 12px;"></i>
-        </button>
-      </form>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
     </div>
 
-    <!-- PENDING APPROVAL LINKS (HIDDEN INSIDE) -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="navbar-nav ms-auto text-end">
-        <a class="nav-link" href="/listings">Explore</a>
-        <a class="nav-link" href="/listings/new">Airbnb your home</a>
-        
-        <% if(currUser && typeof adminEmail !== 'undefined' && currUser.email === adminEmail) { %>
-          <a class="nav-link text-danger" href="/listings/admin/pending">Moderation Panel</a>
-        <% } %>
+    <!-- CENTER -->
+    <div class="nav-center">
+      <form class="search-container" action="/listings" method="GET">
+        <input class="search-input" type="search" name="search" placeholder="Search destinations">
+        <button class="search-btn-pill" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Search</span>
+        </button>
+      </form>
+    </div>
 
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon" style="font-size: 0.8rem;"></span>
+      </button>
+
+      <div class="collapse navbar-collapse position-absolute end-0 top-100 mt-2" id="navbarNavAltMarkup">
+        <div class="nav-right-mobile">
+          <a href="/listings" class="d-lg-none">Explore</a>
+          <a href="/listings/new">Airbnb your home</a>
+          
+          <% if(currUser && typeof adminEmail !== 'undefined' && currUser.email === adminEmail) { %>
+            <a href="/listings/admin/pending" class="admin-panel">Moderation Panel</a>
+          <% } %>
+
+          <% if(!currUser) { %>
+            <a href="/signup">Sign Up</a>
+            <a href="/login">Log In</a>
+          <% } %> 
+          
+          <% if(currUser) { %>
+            <a href="/logout">Log Out</a>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Desktop horizontal links (Optional: you can keep them inside collapse or show them directly) -->
+      <div class="d-none d-lg-flex align-items-center">
+        <a href="/listings/new">Airbnb your home</a>
+        <% if(currUser && typeof adminEmail !== 'undefined' && currUser.email === adminEmail) { %>
+          <a href="/listings/admin/pending" class="admin-panel">Moderation Panel</a>
+        <% } %>
         <% if(!currUser) { %>
-          <a class="nav-link" href="/signup">Sign Up</a>
-          <a class="nav-link" href="/login">Log In</a>
-        <% } %> 
-        
-        <% if(currUser) { %>
-          <a class="nav-link" href="/logout">Log Out</a>
+          <a href="/signup">Sign Up</a>
+          <a href="/login">Log In</a>
+        <% } else { %>
+          <a href="/logout">Log Out</a>
         <% } %>
       </div>
     </div>
